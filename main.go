@@ -1,13 +1,30 @@
 package main
 
 import (
-	"fyne.io/fyne/app"
-	"fyne.io/fyne/widget"
+	"log"
+
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/container"
+
+	//"fyne.io/fyne/v2/data/binding"
+	"fyne.io/fyne/v2/widget"
+	//"fyne.io/fyne/v2/layout"
+	//"fyne.io/fyne/v2/dialog"
 )
 
 func main() {
 	a := app.New()
-	w := a.NewWindow("Hello")
-	w.SetContent(widget.NewLabel("Hello, world!"))
+	w := a.NewWindow("SortinGopher")
+	w.Resize(fyne.NewSize(900, 600))
+
+	input  := widget.NewEntry()
+	input.SetPlaceHolder("Please enter the path where the zip file is located ... ")
+
+	content := container.NewVBox(input, widget.NewButton("Save", func(){
+		log.Println("COntent was : ", input.Text)
+	}))
+
+	w.SetContent(content)
 	w.ShowAndRun()
 }
