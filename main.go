@@ -11,6 +11,8 @@ import (
 	"fyne.io/fyne/v2/widget"
 	//"fyne.io/fyne/v2/layout"
 	//"fyne.io/fyne/v2/dialog"
+
+	"sortinGopher/permanentPath"
 )
 
 func main() {
@@ -22,8 +24,12 @@ func main() {
 	input.SetPlaceHolder("Please enter the path where the zip file is located ... ")
 
 	content := container.NewVBox(input, widget.NewButton("Save", func(){
-		log.Println("COntent was : ", input.Text)
+		permanentPath.MkPathFile(input.Text)
+
+		log.Println("Content was : ", input.Text)
 	}))
+
+
 
 	w.SetContent(content)
 	w.ShowAndRun()
