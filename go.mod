@@ -5,6 +5,7 @@ go 1.16
 require (
 	fyne.io/fyne v1.4.3 // indirect
 	fyne.io/fyne/v2 v2.0.2
+	github.com/artdarek/go-unzip v1.0.0 // indirect
 	github.com/go-gl/gl v0.0.0-20210315015930-ae072cafe09d // indirect
 	github.com/go-gl/glfw/v3.3/glfw v0.0.0-20210410170116-ea3d685f79fb // indirect
 	github.com/godbus/dbus/v5 v5.0.4 // indirect
