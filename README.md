@@ -14,6 +14,9 @@
 ### 2: Click on the button that says "Perform ZIP..." below.
 ### That's it.
 
+![image](https://user-images.githubusercontent.com/61903570/115142874-02036600-a07f-11eb-903a-23ff836c5b56.png)
+
+
 
 ### If you find any bugs or improvements, please let me know. It will help us improve this program.
 
