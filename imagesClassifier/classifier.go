@@ -130,8 +130,10 @@ func imgClassifier(paths []string, folderPath string){
 
 		}
 
-		fmt.Println("Files were sorted.")
 
 	}
+
+
+	fmt.Println("Files were sorted.")
 }
 

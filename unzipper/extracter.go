@@ -98,10 +98,11 @@ func zipExtracter(filePaths []string, folder string) error {
 				}
 
 				path := filepath.Join(destPath, f.Name)
-				_, err := os.Create(path)
+				out, err := os.Create(path)
 				if  err != nil {
 					log.Fatal(err)
 				}
+				defer out.Close()
 
 
 
