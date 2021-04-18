@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"log"
+	"sync"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
@@ -19,6 +21,7 @@ import (
 )
 
 func main() {
+
 	a := app.New()
 	w := a.NewWindow("SortinGopher")
 	w.Resize(fyne.NewSize(750, 450))
@@ -33,8 +36,20 @@ func main() {
 	}))
 
 	execButton := widget.NewButton("Perform ZIP decompression and classification", func ()  {
-		unzipper.SortZipFile(input.Text)
-		imagesClassifier.FilesClassifier(input.Text)
+		fmt.Println("Executing at: " + input.Text)
+
+		var wg sync.WaitGroup
+		wg.Add(1)
+
+		go unzipper.SortZipFile(input.Text, &wg)
+
+		wg.Wait()
+
+		wg.Add(1)
+
+		imagesClassifier.FilesClassifier(input.Text , &wg)
+
+		wg.Wait()
 
 	})
 

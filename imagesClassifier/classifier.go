@@ -1,18 +1,21 @@
 package imagesClassifier
 
-
-import(
-	"os"
+import (
+	"fmt"
 	"io/ioutil"
+	"os"
 	"path/filepath"
 	"sort"
-	"strings"
 	"strconv"
+	"strings"
+	"sync"
 	"time"
 	//"regexp"
 )
 
-func FilesClassifier(dirName string){
+func FilesClassifier(dirName string, wg *sync.WaitGroup){
+	defer wg.Done()
+
 	imgClassifier(fileSearcher(dirName), dirName)
 }
 
@@ -21,6 +24,8 @@ func fileSearcher(dirName string) []string {
 	if err != nil{
 		panic(err)
 	}
+
+	fmt.Println("Got the file list.")
 
 	var paths []string
 	for _, file := range files{
@@ -39,6 +44,8 @@ func fileSearcher(dirName string) []string {
 func imgClassifier(paths []string, folderPath string){
 	filenameExtension := ".jpg"
 
+	fmt.Println("Sorting was started.")
+
 	sort.Slice(paths, func(i, j int) bool {return paths[i] < paths[j]})
 	t := time.Now()
 	const layout = "2006-01-02_15-04"
@@ -47,6 +54,8 @@ func imgClassifier(paths []string, folderPath string){
 
 	for i, p := range paths{
 		imagePath := p//写真のパス
+
+
 
 		if i == 0{
 			continue
@@ -121,7 +130,7 @@ func imgClassifier(paths []string, folderPath string){
 
 		}
 
-
+		fmt.Println("Files were sorted.")
 
 	}
 }

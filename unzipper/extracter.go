@@ -2,37 +2,77 @@ package unzipper
 
 import (
 	"archive/zip"
+	"fmt"
 	"io"
+	"log"
 	"os"
 	"path/filepath"
-	"strings"
-	"log"
+	"sync"
+	//"strings"
 )
 
 
-func SortZipFile(thePath string) {
+func SortZipFile(thePath string, wg *sync.WaitGroup) {
+	defer wg.Done()
+
 	zipExtracter(zipSearcher(thePath))
 
 }
 
 func zipSearcher(thePath string)([]string, string){
-	files, _ := os.ReadDir(thePath)
-	var fileList []string
+	var zipFiles []string
+  err := filepath.Walk(thePath, func(path string, info os.FileInfo, err error) error {
+    if err != nil {
+        return err
+    }
+    if info.IsDir() {
+        return nil
+    }
+    if matched, err := filepath.Match("*.zip", filepath.Base(path)); err != nil {
+        return err
+    } else if matched {
+        zipFiles = append(zipFiles, path)
+    }
+    return nil
+  })
+  if err != nil {
+      return nil, err.Error()
+  }
+
+	fmt.Println("Path is " + thePath)
+
+	/*
+	files, err := os.ReadDir(thePath)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	*/
+	fmt.Println("Got the file list. Length is ")
+	fmt.Sprintln(len(zipFiles))
+
+	//var fileList []string
 	//dirPath := thePath
 
-  for _, v := range files{
+	/*
+  for _, v := range zipFiles{
 		if strings.Contains(v.Name(), ".zip") {
 			fileList = append(fileList, thePath + v.Name())
 		}
 	}
+	*/
+	fmt.Println("Got the zip file list.")
 
-	return fileList, thePath //, dirPath
+	return zipFiles, thePath //, dirPath
 }
 
 func zipExtracter(filePaths []string, folder string) error {
 
+	fmt.Println("Extracting is started")
 	for _, fp := range filePaths{
-		destPath := folder //+ "/extracted/"
+
+
+		destPath := folder
 		filepath.Clean(destPath)
 		images, err := zip.OpenReader(fp)
 		if err != nil{
@@ -73,6 +113,8 @@ func zipExtracter(filePaths []string, folder string) error {
 			}
 		}
 	}
+
+	fmt.Println("Extracted the zip.")
 
 	return nil
 }
