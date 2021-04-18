@@ -1,4 +1,4 @@
-package fileCalssifier
+package unzipper
 
 import (
 	"archive/zip"
@@ -7,12 +7,11 @@ import (
 	"path/filepath"
 	"strings"
 	"log"
-	"github.com/artdarek/go-unzip/pkg/unzip"
 )
 
 
 func SortZipFile(thePath string) {
-	unzipper(zipSearcher(thePath))
+	zipExtracter(zipSearcher(thePath))
 
 }
 
@@ -23,38 +22,23 @@ func zipSearcher(thePath string)([]string, string){
 
   for _, v := range files{
 		if strings.Contains(v.Name(), ".zip") {
-			fileList = append(fileList, v.Name())
+			fileList = append(fileList, thePath + v.Name())
 		}
 	}
 
 	return fileList, thePath //, dirPath
 }
 
-func unzipper(filesPath []string, thePath string){
-	uz := unzip.New()
-
-	extPath := thePath + "/extracted"
-
-	for i, _ := range(filesPath){
-		_, err := uz.Extract(filesPath[i], extPath)
-
-		if err != nil {
-			log.Println(err)
-		}
-	}
-}
-
-func zipExtracter(filePaths []string) error {
+func zipExtracter(filePaths []string, folder string) error {
 
 	for _, fp := range filePaths{
-		destPath := fp + "/extracted/"
+		destPath := folder //+ "/extracted/"
+		filepath.Clean(destPath)
 		images, err := zip.OpenReader(fp)
 		if err != nil{
 			return err
 		}
-
 		defer images.Close()
-
 
 		for _, f := range images.File{
 			image, err := f.Open()
@@ -74,9 +58,17 @@ func zipExtracter(filePaths []string) error {
 				}
 
 				path := filepath.Join(destPath, f.Name)
-				err := os.WriteFile(path, buf, f.Mode())
-				if err != nil{
-					return err
+				_, err := os.Create(path)
+				if  err != nil {
+					log.Fatal(err)
+				}
+
+
+
+
+				errWrite := os.WriteFile(path, buf, f.Mode())
+				if errWrite != nil{
+					return errWrite
 				}
 			}
 		}

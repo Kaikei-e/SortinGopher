@@ -6,13 +6,14 @@ import (
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/container"
-
 	//"fyne.io/fyne/v2/data/binding"
 	"fyne.io/fyne/v2/widget"
 	//"fyne.io/fyne/v2/layout"
 	//"fyne.io/fyne/v2/dialog"
 
 	"sortinGopher/permanentPath"
+	"sortinGopher/unzipper"
+	"sortinGopher/imagesClassifier"
 )
 
 func main() {
@@ -29,7 +30,13 @@ func main() {
 		log.Println("Content was : ", input.Text)
 	}))
 
-	
+	execButton := widget.NewButton("Perform ZIP decompression and classification", func ()  {
+		unzipper.SortZipFile(input.Text)
+		imagesClassifier.FilesClassifier(input.Text)
+
+	})
+
+
 
 
 
