@@ -1,4 +1,4 @@
-# SortinGopher
+# SortinGopher: a ZIP expansion and classification program
 
 ### SortinGopher is a program built with the Go language and the Fyne framework.
 ### The program extracts downloaded Zip files in the format of Twitter media downloader and sorts images and videos by Twitter account ID.
