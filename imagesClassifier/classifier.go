@@ -25,7 +25,6 @@ func fileSearcher(dirName string) []string {
 		panic(err)
 	}
 
-	fmt.Println("Got the file list.")
 
 	var paths []string
 	for _, file := range files{
@@ -37,6 +36,8 @@ func fileSearcher(dirName string) []string {
 
 		paths = append(paths, filepath.Join(dirName, file.Name()))
 	}
+
+
 
 	return paths
 }
