@@ -1,6 +1,6 @@
 # SortinGopher: Unzip program in conjunction with Twitter Media Downloader
 
-### SortinGopher is a program built with the Go language and the Fyne framework.
+### SortinGopher is a program built with the Go language and the [Fyne](https://github.com/fyne-io/fyne) framework.
 ### The program extracts downloaded Zip files in the format of Twitter media downloader and sorts images and videos by Twitter account ID.
 
 ### !!!
