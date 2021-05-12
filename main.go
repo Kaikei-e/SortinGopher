@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"sync"
+	"C"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
