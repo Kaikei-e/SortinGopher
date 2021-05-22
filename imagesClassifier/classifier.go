@@ -123,7 +123,7 @@ func imgClassifier(paths []string, folderPath string){
 					panic(err)
 				}
 			}else{
-				if err := os.Rename(imagePath, folderPath + "/" + fileName + "/" + fileName + "+" + tFormatted + "No" + strconv.Itoa(i) + filenameExtension)
+				if err := os.Rename(imagePath, folderPath + "/" + fileName + "/" + fileName + "-" + tFormatted + "No" + strconv.Itoa(i) + filenameExtension)
 				err != nil{
 					panic(err)
 				}

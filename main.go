@@ -66,5 +66,3 @@ func main() {
 
 	w.ShowAndRun()
 }
-
-
