@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"sync"
-	"C"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
@@ -48,7 +47,7 @@ func main() {
 
 		wg.Add(1)
 
-		imagesClassifier.FilesClassifier(input.Text , &wg)
+		imagesClassifier.ImgClassifier(input.Text , &wg)
 
 		wg.Wait()
 

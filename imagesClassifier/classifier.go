@@ -61,6 +61,7 @@ func imgClassifier(paths []string, folderPath string){
 		if i == 0{
 			continue
 		}
+		
 		// get extend filename extension
 		if strings.Contains(imagePath, ".jpg"){
 			filenameExtension = ".jpg"

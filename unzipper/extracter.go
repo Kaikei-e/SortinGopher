@@ -8,7 +8,6 @@ import (
 	"os"
 	"path/filepath"
 	"sync"
-	//"strings"
 )
 
 
@@ -16,6 +15,17 @@ func SortZipFile(thePath string, wg *sync.WaitGroup) {
 	defer wg.Done()
 
 	zipExtracter(zipSearcher(thePath))
+
+	zipFiles, err := filepath.Glob(thePath + "/*.zip")
+	if err != nil {
+		log.Fatalln(err)
+	}
+	for _, f := range zipFiles{
+		if err := os.Remove(f); err != nil{
+			log.Fatalln(err)
+		}
+	}
+
 
 }
 
@@ -104,9 +114,6 @@ func zipExtracter(filePaths []string, folder string) error {
 				}
 				defer out.Close()
 
-
-
-
 				errWrite := os.WriteFile(path, buf, f.Mode())
 				if errWrite != nil{
 					return errWrite
@@ -114,6 +121,7 @@ func zipExtracter(filePaths []string, folder string) error {
 			}
 		}
 	}
+
 
 	fmt.Println("Extracted the zip.")
 
