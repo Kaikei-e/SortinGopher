@@ -31,9 +31,6 @@ func ImgClassifier(dirName string, wg *sync.WaitGroup) {
 		if f.IsDir(){
 			continue
 		}
-		log.Println(f.Name())
-		log.Println(i)
-
 		fileName := filepath.Base(dirName + "/" + f.Name())
 
 
@@ -79,7 +76,7 @@ func ImgClassifier(dirName string, wg *sync.WaitGroup) {
 					err != nil{
 						panic(err)
 				}
-				
+
 		}
 
 
