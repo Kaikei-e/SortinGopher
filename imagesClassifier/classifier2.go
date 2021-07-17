@@ -68,18 +68,21 @@ func ImgClassifier(dirName string, wg *sync.WaitGroup) {
 					panic(err)
 			}
 			// path does not exist
+		}else{
+			if _, err := os.Stat(dirName + "/" + accountID); !os.IsNotExist(err) {
+				if err := os.Rename(dirName + "/" + f.Name(), dirName + "/" + accountID + "-" + tFormatted + "-" + "No" + strconv.Itoa(i) + extension)
+					err != nil{
+						panic(err)
+				}
+
+				if err := os.Rename(dirName + "/" + accountID + "-" + tFormatted + "-" + "No" + strconv.Itoa(i) + extension, dirName + "/" + accountID + "/" + accountID + "-" + tFormatted + "-" + "No" + strconv.Itoa(i) + extension)
+					err != nil{
+						panic(err)
+				}
+				
 		}
 
-		if _, err := os.Stat(dirName + "/" + accountID); !os.IsNotExist(err) {
-			if err := os.Rename(dirName + "/" + f.Name(), dirName + "/" + accountID + "-" + tFormatted + "-" + "No" + strconv.Itoa(i) + extension)
-				err != nil{
-					panic(err)
-			}
 
-			if err := os.Rename(dirName + "/" + accountID + "-" + tFormatted + "-" + "No" + strconv.Itoa(i) + extension, dirName + "/" + accountID + "/" + accountID + "-" + tFormatted + "-" + "No" + strconv.Itoa(i) + extension)
-				err != nil{
-					panic(err)
-			}
 
 
 			// path exists
